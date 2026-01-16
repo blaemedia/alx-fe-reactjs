@@ -7,26 +7,25 @@ import UserProfile from "./components/UserProfile";
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  
   return (
       
     <>
     <div>
-        <Header />
+      <Header />
       <MainContent />
-      <Footer />
       <WelcomeMessage />
+      <Counter />
       <UserProfile 
         name="Alice"
         age={25}
         bio="Loves hiking and photography"
         />
+        <Footer />
 
-        <p>Current Count: {count}</p>
-         <button onClick={() => setCount(count + 1)}>Increment</button>
-         <button onClick={() => setCount(count - 1)}>Decrement</button>
-         <button onClick={() => setCount(0)}>Reset</button>
+        
+
+       
     </div>
       
    </>
