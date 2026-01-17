@@ -7,6 +7,7 @@ import Home from "./Home"
 import Contact from "./Contact" 
 import Services from "./Services" 
 import About from "./About" 
+import Navbar from "./Navbar";
 import './App.css'
 
 
@@ -22,6 +23,7 @@ function App() {
       
     <>
       <Router>
+        <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Contact" element={<Contact />} />
