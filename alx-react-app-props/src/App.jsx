@@ -7,7 +7,7 @@ import MainContent from './components/MainContent'
 import Footer from './components/Footer'
 import UserProfile from "./components/UserProfile";
 import ProfilePage from "./ProfilePage";
-import UserContext from "./UserContext";
+import UserContext from "../UserContext";
 import './App.css'
 
 function App() {
