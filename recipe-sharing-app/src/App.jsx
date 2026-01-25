@@ -8,9 +8,22 @@ function App() {
 
   return (
     <>
+     <BrowserRouter>
       <h1>Recipe Sharing App</h1>
-      <AddRecipeForm />
-      <RecipeList />
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <AddRecipeForm />
+              <RecipeList />
+            </>
+          }
+        />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
+      </Routes>
+    </BrowserRouter>
     </>
   )
 }
