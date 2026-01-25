@@ -1,39 +1,52 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeList from './components/RecipeList';
-import './App.css'
+import RecipeDetails from './components/RecipeDetails';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+import SearchBar from './components/SearchBar';
+import { useRecipeStore } from './stores/recipeStore';
 
-function App() {
-    const generateRecommendations = useRecipeStore(
+export default function App() {
+  const generateRecommendations = useRecipeStore(
     (state) => state.generateRecommendations
+  );
 
   return (
-    <>
-      <BrowserRouter>
-      <h1>Recipe Sharing App</h1>
+    <BrowserRouter>
+      <div style={{ padding: '1rem' }}>
+        <h1>Recipe Sharing App</h1>
 
-      <button onClick={generateRecommendations}>
-        Generate Recommendations
-      </button>
+        {/* Search Bar */}
+        <SearchBar />
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AddRecipeForm />
-              <RecipeList />
-              <FavoritesList />
-              <RecommendationsList />
-            </>
-          }
-        />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-      </Routes>
+        {/* Generate Recommendations */}
+        <button
+          onClick={generateRecommendations}
+          style={{ marginBottom: '1rem', padding: '0.5rem 1rem' }}
+        >
+          Generate Recommendations
+        </button>
+
+        {/* Routes */}
+        <Routes>
+          {/* Home Page */}
+          <Route
+            path="/"
+            element={
+              <>
+                <AddRecipeForm />
+                <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
+              </>
+            }
+          />
+
+          {/* Recipe Details Page */}
+          <Route path="/recipes/:id" element={<RecipeDetails />} />
+        </Routes>
+      </div>
     </BrowserRouter>
-    </>
-  )
+  );
 }
-
-export default App
