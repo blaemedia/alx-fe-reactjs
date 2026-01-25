@@ -5,12 +5,17 @@ import RecipeList from './components/RecipeList';
 import './App.css'
 
 function App() {
-  
+    const generateRecommendations = useRecipeStore(
+    (state) => state.generateRecommendations
 
   return (
     <>
-     <BrowserRouter>
+      <BrowserRouter>
       <h1>Recipe Sharing App</h1>
+
+      <button onClick={generateRecommendations}>
+        Generate Recommendations
+      </button>
 
       <Routes>
         <Route
@@ -19,6 +24,8 @@ function App() {
             <>
               <AddRecipeForm />
               <RecipeList />
+              <FavoritesList />
+              <RecommendationsList />
             </>
           }
         />
