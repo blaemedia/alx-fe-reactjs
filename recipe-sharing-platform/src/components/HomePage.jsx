@@ -1,7 +1,12 @@
+import { useState, useEffect } from "react";
 import recipesData from "../data.json";
 
 function HomePage() {
-  const recipes = recipesData;
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    setRecipes(recipesData);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
@@ -20,12 +25,10 @@ function HomePage() {
               alt={recipe.title}
               className="w-full h-48 object-cover rounded-t-lg"
             />
-
             <div className="p-4">
               <h2 className="text-lg font-semibold text-gray-800 mb-2">
                 {recipe.title}
               </h2>
-
               <p className="text-gray-600 text-sm">
                 {recipe.summary}
               </p>
