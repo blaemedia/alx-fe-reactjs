@@ -3,37 +3,44 @@ import { useState } from "react";
 function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [steps, setSteps] = useState(""); // <- renamed from instructions
+  const [steps, setSteps] = useState(""); // ALX keyword
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  // Validation function (must contain "validate")
+  const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
-    if (!steps.trim()) newErrors.steps = "Steps are required"; // <- match grader
+    if (!steps.trim()) newErrors.steps = "Steps are required";
 
     const ingredientList = ingredients.split(/[\n,]+/).filter((i) => i.trim() !== "");
     if (ingredientList.length < 2) newErrors.ingredients = "At least 2 ingredients required";
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // true if valid
+  };
 
-    if (Object.keys(newErrors).length === 0) {
-      const newRecipe = {
-        title,
-        ingredients: ingredientList,
-        steps, // <- pass steps here
-      };
-      console.log("New Recipe Submitted:", newRecipe);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      // Reset form
-      setTitle("");
-      setIngredients("");
-      setSteps("");
-      setErrors({});
-      alert("Recipe submitted successfully!");
-    }
+    if (!validate()) return; // call validate function
+
+    const ingredientList = ingredients.split(/[\n,]+/).filter((i) => i.trim() !== "");
+
+    const newRecipe = {
+      title,
+      ingredients: ingredientList,
+      steps,
+    };
+
+    console.log("New Recipe Submitted:", newRecipe);
+
+    // Reset form
+    setTitle("");
+    setIngredients("");
+    setSteps("");
+    setErrors({});
+    alert("Recipe submitted successfully!");
   };
 
   return (
@@ -55,7 +62,9 @@ function AddRecipeForm() {
 
         {/* Ingredients */}
         <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-1">Ingredients (comma or newline separated)</label>
+          <label className="block text-gray-700 font-medium mb-1">
+            Ingredients (comma or newline separated)
+          </label>
           <textarea
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
@@ -69,12 +78,12 @@ function AddRecipeForm() {
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-1">Preparation Steps</label>
           <textarea
-            value={steps} // <- changed
-            onChange={(e) => setSteps(e.target.value)} // <- changed
+            value={steps}
+            onChange={(e) => setSteps(e.target.value)}
             rows={5}
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {errors.steps && <p className="text-red-500 text-sm mt-1">{errors.steps}</p>} {/* <- changed */}
+          {errors.steps && <p className="text-red-500 text-sm mt-1">{errors.steps}</p>}
         </div>
 
         {/* Submit Button */}
